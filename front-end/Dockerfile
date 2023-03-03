@@ -8,8 +8,10 @@ COPY . .
 # ==== BUILD =====
 # Install dependencies (npm ci makes sure the exact versions in the lockfile gets installed)
 RUN npm ci 
-# Build the app
-RUN npm run build
+# Build for production.
+RUN npm run build --production
+# Install `serve` to run the application.
+RUN npm install -g serve
 # ==== RUN =======
 # Set the env to "production"
 ENV NODE_ENV production

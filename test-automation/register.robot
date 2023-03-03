@@ -13,11 +13,23 @@ ${name_input}                                       xpath=//*[@data-test="regist
 ${email_input}                                      xpath=//*[@data-test="register-email"]
 ${password_input}                                   xpath=//*[@data-test="register-password"]
 
+*** Keywords ***
+Open Website
+    ${chrome_options}=  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys, selenium.webdriver
+    Call Method    ${chrome_options}    add_argument    --no-sandbox
+    Call Method    ${chrome_options}    add_argument    --headless
+    Call Method    ${chrome_options}    add_argument    --start-maximized
+    Call Method    ${chrome_options}    add_argument    --window-size\=1920,1080
+    Call Method    ${chrome_options}    add_argument    --disable-dev-shm-usage
+    Open Browser    ${URl}    chrome    options=${chrome_options}
+
+*** Settings ***
+Suite Setup       Open Website
+
 *** Test Cases ***
 User can do register
     [Documentation]                                 The user can register
-    open browser                                    ${URL}    ${browser}
-    Maximize Browser Window
+    Open Website
     Wait Until Element Is Visible                   ${nav_register_button}
     click element                                   ${nav_register_button}
     Wait Until Element Is Visible                   ${register_button}
@@ -33,8 +45,7 @@ User can do register
 
 Name is empty
     [Documentation]                                 The name is empty
-    open browser                                    ${URL}    ${browser}
-    Maximize Browser Window
+    Open Website
     Wait Until Element Is Visible                   ${nav_register_button}
     click element                                   ${nav_register_button}
     Wait Until Element Is Visible                   ${register_button}
@@ -49,8 +60,7 @@ Name is empty
 
 Email is invalid
     [Documentation]                                 The email was invalid
-    open browser                                    ${URL}    ${browser}
-    Maximize Browser Window
+    Open Website
     Wait Until Element Is Visible                   ${nav_register_button}
     click element                                   ${nav_register_button}
     Wait Until Element Is Visible                   ${register_button}
@@ -66,8 +76,7 @@ Email is invalid
 
 Password is empty
     [Documentation]                                 The password was empty
-    open browser                                    ${URL}    ${browser}
-    Maximize Browser Window
+    Open Website
     Wait Until Element Is Visible                   ${nav_register_button}
     click element                                   ${nav_register_button}
     Wait Until Element Is Visible                   ${register_button}
