@@ -42,13 +42,13 @@ Install a python enviroment
 
 Install the Robot Framework and Selenium library
 ```bash
-pip install robotframework
-pip install selenium robotframework-selenium2library webdrivermanager
-robot --version
+  pip install robotframework
+  pip install selenium robotframework-selenium2library webdrivermanager
+  robot --version
 ```
 Run the tests
 ```bash
-robot .
+  robot .
 ```
 ## Tech Stack
 * [Bootstrap](https://getbootstrap.com/)

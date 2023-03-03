@@ -12,10 +12,23 @@ ${login_button}                                     xpath=//*[@data-test="login-
 ${email_input}                                      xpath=//*[@data-test="login-email"]
 ${password_input}                                   xpath=//*[@data-test="login-password"]
 
+*** Keywords ***
+Open Website
+    ${chrome_options}=  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys, selenium.webdriver
+    Call Method    ${chrome_options}    add_argument    --no-sandbox
+    Call Method    ${chrome_options}    add_argument    --headless
+    Call Method    ${chrome_options}    add_argument    --start-maximized
+    Call Method    ${chrome_options}    add_argument    --window-size\=1920,1080
+    Call Method    ${chrome_options}    add_argument    --disable-dev-shm-usage
+    Open Browser    ${URl}    chrome    options=${chrome_options}
+
+*** Settings ***
+Suite Setup       Open Website
+
 *** Test Cases ***
 User can do a login
     [Documentation]                                 The user can do a login
-    open browser                                    ${URL}    ${browser}
+    Open Website
     Maximize Browser Window
     Wait Until Element Is Visible                   ${nav_login_button}
     click element                                   ${nav_login_button}
@@ -31,7 +44,7 @@ User can do a login
 
 Email is invalid
     [Documentation]                                 The email was invalid
-    open browser                                    ${URL}    ${browser}
+    Open Website
     Maximize Browser Window
     Wait Until Element Is Visible                   ${nav_login_button}
     click element                                   ${nav_login_button}
@@ -47,7 +60,7 @@ Email is invalid
 
 Password is empty
     [Documentation]                                 The password was empty
-    open browser                                    ${URL}    ${browser}
+    Open Website
     Maximize Browser Window
     Wait Until Element Is Visible                   ${nav_login_button}
     click element                                   ${nav_login_button}
