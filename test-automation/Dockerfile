@@ -13,4 +13,4 @@ RUN python3 -m pip install robotframework
 RUN python3 -m pip install selenium robotframework-selenium2library webdrivermanager
 WORKDIR /app
 COPY . .
-CMD ["robot", "."]
+CMD ["robot", "--outputdir results ."]
